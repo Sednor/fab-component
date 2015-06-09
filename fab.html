@@ -4,7 +4,6 @@
 <link rel="import" href="fab-sub-button.html">
 
 <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-<script src="bower_components/web-animations-js/web-animations-next.min.js"></script>
 
 
 <dom-module id="fab-button">
@@ -22,20 +21,83 @@
         }
 
         fab-sub-button {
-            display: none;
+            display: block;
         }
+
+        .active-element {
+            visibility: visible;
+            opacity: 1;
+            -webkit-transition: opacity 0.5s ease;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        .not-active-element {
+            visibility: hidden;
+            opacity: 0;
+            -webkit-transition: visibility 0s 0.5s, opacity 0.5s ease;
+        }
+
+        .rotate-element-clockwise {
+            -webkit-animation:spin 4s linear infinite;
+            -moz-animation:spin 4s linear infinite;
+            animation:spin 4s linear infinite;
+        }
+
+        .rotate-element-counter-clockwise {
+            -webkit-animation:spin-back 4s linear infinite;
+            -moz-animation:spin-back 4s linear infinite;
+            animation:spin-back 4s linear infinite;
+        }
+
+        @-moz-keyframes spin { 100% { -moz-transform: rotate(3600deg); } }
+        @-webkit-keyframes spin { 100% { -webkit-transform: rotate(3600deg); } }
+        @keyframes spin { 100% { -webkit-transform: rotate(3600deg); transform: rotate(3600deg); } }
+
+        @-moz-keyframes spin-back { 100% { -moz-transform: rotate(-3600deg); } }
+        @-webkit-keyframes spin-back { 100% { -webkit-transform: rotate(-3600deg); } }
+        @keyframes spin-back { 100% { -webkit-transform: rotate(-3600deg); transform: rotate(-3600deg); } }
 
     </style>
     <template>
         <div class="fab-container">
             <div class="sub-buttons">
-                <fab-sub-button background="#4DCFE0" src="img/h_letter.png" title="Henry"></fab-sub-button>
-                <fab-sub-button background="#B968C7" src="img/c_letter.png" title="Christian"></fab-sub-button>
-                <fab-sub-button background="#4DB5AB" src="img/i_letter.png" title="Ibrahim"></fab-sub-button>
-                <fab-sub-button background="#3C7FF5" icon="alarm" title="Notification"></fab-sub-button>
-                <fab-sub-button background="#D3A414" icon="card-membership" title="Invite"></fab-sub-button>
+                <fab-sub-button
+                        class="not-active-element"
+                        background="#4DCFE0"
+                        src="img/h_letter.png"
+                        title="Henry"
+                        onclick="alert('Henry button pressed')">
+                </fab-sub-button>
+                <fab-sub-button
+                        class="not-active-element"
+                        background="#B968C7"
+                        src="img/c_letter.png"
+                        title="Christian"
+                        onclick="alert('Christian button pressed')">
+                </fab-sub-button>
+                <fab-sub-button
+                        class="not-active-element"
+                        background="#4DB5AB"
+                        src="img/i_letter.png"
+                        title="Ibrahim"
+                        onclick="alert('Ibrahim button pressed')">
+                </fab-sub-button>
+                <fab-sub-button
+                        class="not-active-element"
+                        background="#3C7FF5"
+                        icon="alarm"
+                        title="Notification"
+                        onclick="alert('Notification button pressed')">
+                </fab-sub-button>
+                <fab-sub-button
+                        class="not-active-element"
+                        background="#D3A414"
+                        icon="card-membership"
+                        title="Invite"
+                        onclick="alert('Invite button pressed')">
+                </fab-sub-button>
             </div>
-            <paper-fab icon="add"></paper-fab>
+            <paper-fab icon="add" onclick="alert('New message button pressed')"></paper-fab>
         </div>
     </template>
 </dom-module>
@@ -58,19 +120,29 @@
         handleMouseEnter: function() {
             var subButtons = this.$$(".sub-buttons").childNodes;
             for (var i = 0; i < subButtons.length; i++) {
-                $(subButtons[i]).show();
+                $(subButtons[i]).removeClass("not-active-element");
+                $(subButtons[i]).addClass("active-element");
             }
-            
-            this.$$("paper-fab").setAttribute("icon", "create");
+
+            $(this.$$("paper-fab")).addClass("rotate-element-clockwise");
+            setTimeout(function () {
+                $(this.$$("paper-fab")).removeClass("rotate-element-clockwise");
+                this.$$("paper-fab").setAttribute("icon", "create");
+            }.bind(this), 200);
         },
 
         handleMouseExit: function() {
             var subButtons = this.$$(".sub-buttons").childNodes;
             for (var i = 0; i < subButtons.length; i++) {
-                $(subButtons[i]).hide();
+                $(subButtons[i]).removeClass("active-element");
+                $(subButtons[i]).addClass("not-active-element");
             }
 
-            this.$$("paper-fab").setAttribute("icon", "add");
+            $(this.$$("paper-fab")).addClass("rotate-element-counter-clockwise");
+            setTimeout(function () {
+                this.$$("paper-fab").setAttribute("icon", "add");
+                $(this.$$("paper-fab")).removeClass("rotate-element-counter-clockwise");
+            }.bind(this), 200);
         }
     });
 </script>

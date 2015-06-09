@@ -13,7 +13,6 @@
     "polymer": "Polymer/polymer#^1.0.0",
     "paper-fab": "PolymerElements/paper-fab#^1.0.0",
     "jquery": "*",
-    "bootstrap": "*",
-    "web-animations-js": "*"
+    "bootstrap": "*"
   }
 }
