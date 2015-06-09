@@ -1,0 +1,38 @@
+<link rel="import" href="bower_components/polymer/polymer.html">
+<link rel="import" href="bower_components/paper-fab/paper-fab.html">
+<link rel="import" href="bower_components/iron-icons/iron-icons.html">
+
+<dom-module id="fab-sub-button">
+    <style>
+        paper-fab {
+            display: block;
+            margin: 10px auto;
+        }
+    </style>
+    <template>
+        <div class="fab-sub-container">
+            <paper-fab mini></paper-fab>
+        </div>
+    </template>
+</dom-module>
+
+<script>
+    Polymer({
+        is: "fab-sub-button",
+        properties: {
+            background: String,
+            icon: String,
+            src: String
+        },
+        ready: function () {
+            var button = this.$$("paper-fab");
+            $(button).css("background", this.background);
+
+            if (this.icon) {
+                button.setAttribute("icon", this.icon);
+            } else if (this.src){
+                button.setAttribute("src", this.src);
+            }
+        }
+    });
+</script>

@@ -1,0 +1,76 @@
+<link rel="import" href="bower_components/polymer/polymer.html">
+<link rel="import" href="bower_components/paper-fab/paper-fab.html">
+<link rel="import" href="bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="fab-sub-button.html">
+
+<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="bower_components/web-animations-js/web-animations-next.min.js"></script>
+
+
+<dom-module id="fab-button">
+    <style>
+        div.fab-container {
+            position: fixed;
+            right: 25px;
+            bottom: 25px;
+        }
+
+        paper-fab {
+            display: block;
+            margin: 10px auto;
+            --paper-fab-background: #db4437;
+        }
+
+        fab-sub-button {
+            display: none;
+        }
+
+    </style>
+    <template>
+        <div class="fab-container">
+            <div class="sub-buttons">
+                <fab-sub-button background="#4DCFE0" src="img/h_letter.png" title="Henry"></fab-sub-button>
+                <fab-sub-button background="#B968C7" src="img/c_letter.png" title="Christian"></fab-sub-button>
+                <fab-sub-button background="#4DB5AB" src="img/i_letter.png" title="Ibrahim"></fab-sub-button>
+                <fab-sub-button background="#3C7FF5" icon="alarm" title="Notification"></fab-sub-button>
+                <fab-sub-button background="#D3A414" icon="card-membership" title="Invite"></fab-sub-button>
+            </div>
+            <paper-fab icon="add"></paper-fab>
+        </div>
+    </template>
+</dom-module>
+
+<script>
+    Polymer({
+        is: "fab-button",
+        listeners: {
+            'mouseenter': 'handleMouseEnter',
+            'mouseleave': 'handleMouseExit'
+        },
+
+        ready: function () {
+            var subButtons = this.$$(".sub-buttons").childNodes;
+            for (var i = 0; i < subButtons.length; i++) {
+                $(subButtons[i]).tooltip({placement: "left"});
+            }
+        },
+
+        handleMouseEnter: function() {
+            var subButtons = this.$$(".sub-buttons").childNodes;
+            for (var i = 0; i < subButtons.length; i++) {
+                $(subButtons[i]).show();
+            }
+            
+            this.$$("paper-fab").setAttribute("icon", "create");
+        },
+
+        handleMouseExit: function() {
+            var subButtons = this.$$(".sub-buttons").childNodes;
+            for (var i = 0; i < subButtons.length; i++) {
+                $(subButtons[i]).hide();
+            }
+
+            this.$$("paper-fab").setAttribute("icon", "add");
+        }
+    });
+</script>

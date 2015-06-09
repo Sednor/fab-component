@@ -1,0 +1,19 @@
+{
+  "name": "fab-component",
+  "version": "0.0.0",
+  "homepage": "https://github.com/Sednor/fab-component",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#^1.0.0",
+    "paper-fab": "PolymerElements/paper-fab#^1.0.0",
+    "jquery": "*",
+    "bootstrap": "*",
+    "web-animations-js": "*"
+  }
+}
