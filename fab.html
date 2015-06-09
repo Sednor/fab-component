@@ -133,7 +133,7 @@
 
         handleMouseExit: function() {
             var subButtons = this.$$(".sub-buttons").childNodes;
-            for (var i = 0; i < subButtons.length; i++) {
+            for (var i = subButtons.length - 1; i >= 0 ; i--) {
                 $(subButtons[i]).removeClass("active-element");
                 $(subButtons[i]).addClass("not-active-element");
             }
@@ -142,7 +142,7 @@
             setTimeout(function () {
                 this.$$("paper-fab").setAttribute("icon", "add");
                 $(this.$$("paper-fab")).removeClass("rotate-element-counter-clockwise");
-            }.bind(this), 200);
+            }.bind(this), 300);
         }
     });
 </script>
